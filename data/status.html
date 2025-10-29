@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#818CF8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="assets/icon/flower.png">
+  <title>Atlas Panel</title>
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="pt-5">
+  <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-5 fw-semibold">Atlas Panel</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="status">Status</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="devices">Devices</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reports">Reports</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="history">History</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="settings">Settings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="network">Network</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about">About</a>
+          </li>
+        </ul>
+        <div id="btnBox1" class="d-block d-md-none mb-1">
+        </div>
+      </div>
+      <div id="btnBox2" class="d-none d-md-block">
+      </div>
+    </div>
+  </nav>
+  <div class="d-flex justify-content-center flex-wrap gap-3 mt-4 mb-3 pb-3">
+    <div class="col-11 col-md-4 item rounded-4 pb-5">
+      <div class="d-flex align-items-center mt-2 mt-md-3 mb-4">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Time</span>
+        </div>
+      </div>
+      <div class="d-flex flex-column justify-content-center align-items-center h-75">
+        <div class="d-flex justify-content-center align-items-center uptime rounded-4 gap-1 gap-md-2">
+          <div class="d-flex flex-column justify-content-center align-items-center uptime-item rounded-3 w-25">
+            <span id="hour" class="item-subtitle fs-1 lh-1 fw-semibold"></span>
+            <span class="item-subtitle fs-6 pt-md-1 fw-medium">Hour</span>
+          </div>
+          <div class="d-flex flex-column justify-content-center align-items-center uptime-item rounded-3 w-25">
+            <span id="minute" class="item-subtitle fs-1 lh-1 fw-semibold"></span>
+            <span class="item-subtitle fs-6 pt-md-1 fw-medium">Min</span>
+          </div>
+          <div class="d-flex flex-column justify-content-center align-items-center uptime-item rounded-3 w-25">
+            <span id="second" class="item-subtitle fs-1 lh-1 fw-semibold"></span>
+            <span class="item-subtitle fs-6 pt-md-1 fw-medium">Sec</span>
+          </div>
+        </div>
+        <div class="pt-2 pt-md-3 mb-2">
+          <span id="zone" class="item-subtitle fs-6 fw-semibold">Time format: 24-hour</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-11 col-md-4 item rounded-4 pb-5">
+      <div class="d-flex align-items-center mt-2 mt-md-3 mb-4">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Date</span>
+        </div>
+      </div>
+      <div class="d-flex flex-column justify-content-center align-items-center h-75">
+        <div id="dateShow" class="d-flex justify-content-center align-items-center uptime rounded-4 gap-1 gap-md-2">
+          <div class="d-flex flex-column justify-content-center align-items-center uptime-item rounded-3 w-25">
+            <span id="day" class="item-subtitle fs-1 lh-1 fw-semibold"></span>
+            <span class="item-subtitle fs-6 pt-md-1 fw-medium">Day</span>
+          </div>
+          <div class="d-flex flex-column justify-content-center align-items-center uptime-item rounded-3 w-25">
+            <span id="month" class="item-subtitle fs-1 lh-1 fw-semibold"></span>
+            <span class="item-subtitle fs-6 pt-md-1 fw-medium">Month</span>
+          </div>
+          <div class="d-flex flex-column justify-content-center align-items-center uptime-item rounded-3 w-30">
+            <span id="year" class="item-subtitle fs-1 lh-1 fw-semibold"></span>
+            <span class="item-subtitle fs-6 pt-md-1 fw-medium">Year</span>
+          </div>
+        </div>
+        <div class="pt-2 pt-md-3 mb-2">
+          <span id="dayweek" class="item-subtitle fs-6 fw-semibold">Day of week:</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-11 col-md-4 item rounded-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Temperature</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center mt-3">
+        <div class="circle overflow-hidden position-relative">
+          <div id="temperatureStack" class="circle-fill position-absolute" style="height: 0%;">
+          </div>
+        </div>
+      </div>
+      <div class="gauge d-flex flex-column justify-content-end align-items-center mb-3 mb-lg-4">
+        <div id="temperatureGauge" class="dot rounded-circle position-relative" style="transform: rotate(-90deg);">
+          <div class="needle position-absolute">
+          </div>
+        </div>
+        <div>
+          <span id="temperature" class="item-subtitle fs-1 fw-bold"></span>
+          <span id="temperatureUnit" class="item-subtitle fs-4 fw-semibold">°</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-11 col-md-4 item rounded-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Humidity</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center mt-3">
+        <div class="circle overflow-hidden position-relative">
+          <div id="humidityStack" class="circle-fill position-absolute" style="height: 0%;">
+          </div>
+        </div>
+      </div>
+      <div class="gauge d-flex flex-column justify-content-end align-items-center mb-3 mb-lg-4">
+        <div id="humidityGauge" class="dot rounded-circle position-relative" style="transform: rotate(-90deg);">
+          <div class="needle position-absolute">
+          </div>
+        </div>
+        <div>
+          <span id="humidity" class="item-subtitle fs-1 fw-bold"></span>
+          <span class="item-subtitle fs-4 fw-semibold">%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-11 col-md-4 item rounded-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Soil Moisture</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center mt-3">
+        <div class="circle overflow-hidden position-relative">
+          <div id="moistStack" class="circle-fill position-absolute" style="height: 0%;">
+          </div>
+        </div>
+      </div>
+      <div class="gauge d-flex flex-column justify-content-end align-items-center mb-3 mb-lg-4">
+        <div id="moistGauge" class="dot rounded-circle position-relative" style="transform: rotate(-90deg);">
+          <div class="needle position-absolute">
+          </div>
+        </div>
+        <div>
+          <span id="moist" class="item-subtitle fs-1 fw-bold"></span>
+          <span class="item-subtitle fs-4 fw-semibold">%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-11 col-md-4 item rounded-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">CO₂</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center mt-3">
+        <div class="circle overflow-hidden position-relative">
+          <div id="co2Stack" class="circle-fill position-absolute" style="height: 0%;">
+          </div>
+        </div>
+      </div>
+      <div class="gauge d-flex flex-column justify-content-end align-items-center mb-3 mb-lg-4">
+        <div id="co2Gauge" class="dot rounded-circle position-relative" style="transform: rotate(-90deg);">
+          <div class="needle position-absolute">
+          </div>
+        </div>
+        <div>
+          <span id="co2" class="item-subtitle fs-1 fw-bold"></span>
+          <span class="item-subtitle fs-4 fw-semibold">ppm</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-11 col-md-4 item rounded-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Inside Light</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center mt-3">
+        <div class="circle overflow-hidden position-relative">
+          <div id="inBrightStack" class="circle-fill position-absolute" style="height: 0%;">
+          </div>
+        </div>
+      </div>
+      <div class="gauge d-flex flex-column justify-content-end align-items-center mb-3 mb-lg-4">
+        <div id="inBrightGauge" class="dot rounded-circle position-relative" style="transform: rotate(-90deg);">
+          <div class="needle position-absolute">
+          </div>
+        </div>
+        <div>
+          <span id="inBright" class="item-subtitle fs-1 fw-bold"></span>
+          <span class="item-subtitle fs-4 fw-semibold">%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-11 col-md-4 item rounded-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Outside Light</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center mt-3">
+        <div class="circle overflow-hidden position-relative">
+          <div id="outBrightStack" class="circle-fill position-absolute" style="height: 0%;">
+          </div>
+        </div>
+      </div>
+      <div class="gauge d-flex flex-column justify-content-end align-items-center mb-3 mb-lg-4">
+        <div id="outBrightGauge" class="dot rounded-circle position-relative" style="transform: rotate(-90deg);">
+          <div class="needle position-absolute">
+          </div>
+        </div>
+        <div>
+          <span id="outBright" class="item-subtitle fs-1 fw-bold"></span>
+          <span class="item-subtitle fs-4 fw-semibold">%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-11 col-md-4 item rounded-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">TVOC</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center mt-3">
+        <div class="circle overflow-hidden position-relative">
+          <div id="tvocStack" class="circle-fill position-absolute" style="height: 0%;">
+          </div>
+        </div>
+      </div>
+      <div class="gauge d-flex flex-column justify-content-end align-items-center mb-3 mb-lg-4">
+        <div id="tvocGauge" class="dot rounded-circle position-relative" style="transform: rotate(-90deg);">
+          <div class="needle position-absolute">
+          </div>
+        </div>
+        <div>
+          <span id="tvoc" class="item-subtitle fs-1 fw-bold"></span>
+          <span class="item-subtitle fs-4 fw-semibold">ppb</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-11 col-md-4 item rounded-4 pb-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3 mb-4 mb-md-1">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Uptime</span>
+        </div>
+      </div>
+      <div class="d-flex flex-column justify-content-center align-items-center h-75 pt-md-2">
+        <div class="d-flex justify-content-center align-items-center uptime rounded-4 gap-1 gap-md-2">
+          <div class="d-flex flex-column justify-content-center align-items-center uptime-item rounded-3">
+            <span id="upDay" class="item-subtitle fs-1 lh-1 fw-semibold"></span>
+            <span class="item-subtitle fs-6 pt-md-1 fw-medium">Day</span>
+          </div>
+          <div class="d-flex flex-column justify-content-center align-items-center uptime-item rounded-3">
+            <span id="upHour" class="item-subtitle fs-1 lh-1 fw-semibold"></span>
+            <span class="item-subtitle fs-6 pt-md-1 fw-medium">Hour</span>
+          </div>
+          <div class="d-flex flex-column justify-content-center align-items-center uptime-item rounded-3">
+            <span id="upMinute" class="item-subtitle fs-1 lh-1 fw-semibold"></span>
+            <span class="item-subtitle fs-6 pt-md-1 fw-medium">Min</span>
+          </div>
+          <div class="d-flex flex-column justify-content-center align-items-center uptime-item rounded-3">
+            <span id="upSecond" class="item-subtitle fs-1 lh-1 fw-semibold"></span>
+            <span class="item-subtitle fs-6 pt-md-1 fw-medium">Sec</span>
+          </div>
+        </div>
+        <div class="pt-2 pt-md-3">
+          <span id="lastUpdate" class="item-subtitle fs-6 fw-semibold">Last update:</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="blank position-fixed">
+  </div>
+  <div class="center position-fixed py-2 px-3 rounded-4 bg-light shadow">
+    <div class="d-flex align-items-center gap-2">
+      <div class="spinner-border text-purple me-1" role="status" aria-hidden="true"></div>
+      <span id="alert" class="fs-5 fw-semibold">Loading...</span>
+    </div>
+  </div>
+  <div class="modal fade" id="alertModal" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style='background-color: var(--bd-color-light);'>
+          <h4 id="modal_title" class="modal-title">Modal Heading</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div id="modal_text" class="modal-body mb-3"></div>
+        <div class="modal-footer" style='background-color: var(--bd-color-light);'>
+          <button type="button" class="btn btn-purple" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="loginModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style='background-color: var(--bd-color-light);'>
+          <h4 class="modal-title">Sign in</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class='d-flex flex-column align-items-center py-4'>
+            <div class="col-10 col-md-9">
+                <div class="alert alert-purple mb-3 mt-0 w-100" role="alert" style="line-height: 0.5; display: none;" id="alert_text"></div>
+                <input type='text' class='form-control fs-6 w-100 mb-1' id='username' name='username' style='border-color: var(--up-color-light);' placeholder='Username'/>
+                <input type='password' class='form-control fs-6 w-100 mt-2' id='password' name='password' style='border-color: var(--up-color-light);' placeholder='Password'/>
+                <div class='form-check mt-2 w-100'>
+                    <input type='checkbox' class='form-check-input' id='showPass' onclick='showPassword(this)' style='border-color: var(--up-color-light);'>
+                    <label for='showPass' class='form-check-label fs-6' style='color: var(--bs-secondary-color);'>Show Password</label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style='background-color: var(--bd-color-light);'>
+          <button id="logBtn" type="button" class="btn btn-purple" onclick='loginBtn(this);'>Login</button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="logoutModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style='background-color: var(--bd-color-light);'>
+          <h4 class="modal-title">Logout Confirmation</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body mb-3">Are you sure you want to log out? Any unsaved changes may be lost.</div>
+        <div class="modal-footer" style='background-color: var(--bd-color-light);'>
+          <button type="button" class="btn btn-purple" onclick='logoutBtn(this);'>Yes</button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/jquery-3.7.1.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#loginModal input').keypress(function(e) {
+          if (e.which === 13) {
+              e.preventDefault();
+              loginBtn($("#logBtn"));
+          }
+      });
+    });
+    let errorShow = "";
+    let ajaxInProgress = false;
+    function map(value, in_min, in_max, out_min, out_max) {
+      return (value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+    setInterval(() => {
+      if (ajaxInProgress) return;
+      ajaxInProgress = true;
+      $.ajax({
+        url: "/getStatus", 
+        type: 'POST', 
+        data: {
+            'sessionID': localStorage.getItem("sessionID")
+        },
+        dataType: 'json', 
+        success: function (data) {
+          ajaxInProgress = false;
+          if (data.login) {
+            $("#btnBox1").html("<button class='btn btn-purple' data-bs-toggle='modal' data-bs-target='#logoutModal'>Log out</button>");
+            $("#btnBox2").html("<button class='btn btn-purple' data-bs-toggle='modal' data-bs-target='#logoutModal'>Log out</button>");
+          }
+          else {
+            $("#btnBox1").html("<button class='btn btn-purple' data-bs-toggle='modal' data-bs-target='#loginModal'>Sign in</button>");
+            $("#btnBox2").html("<button class='btn btn-purple' data-bs-toggle='modal' data-bs-target='#loginModal'>Sign in</button>");
+          }
+          if (!data.login && data.forceLogin) {
+            window.location.href = '/login';
+          }
+          $("#hour").text(data.time.split(":")[0]);
+          $("#minute").text(data.time.split(":")[1]);
+          $("#second").text(data.time.split(":")[2]);
+          $("#day").text(data.date.split("/")[0]);
+          $("#month").text(data.date.split("/")[1]);
+          $("#year").text(data.date.split("/")[2]);
+          $("#dayweek").text("Day of week: " + data.dayOfWeek);
+          $("#temperature").text(data.temperature);
+          if (data.temperature != "--") {
+              if (data.unit == "centigrade") {
+                $("#temperatureUnit").text("°C");
+                $("#temperatureStack").css("height", map(data.temperature, 0, 50, 0, 100) + "%");
+                $("#temperatureGauge").css("transform", "rotate(" + (-90 + map(data.temperature, 0, 50, 0, 180)) + "deg)");
+              }
+              else if (data.unit == "fahrenheit") {
+                $("#temperatureUnit").text("°F");
+                $("#temperatureStack").css("height", map(data.temperature, 32, 122, 0, 100) + "%");
+                $("#temperatureGauge").css("transform", "rotate(" + (-90 + map(data.temperature, 32, 122, 0, 180)) + "deg)");
+              }
+          }
+          else {
+            $("#temperatureStack").css("height", "0%");
+            $("#temperatureGauge").css("transform", "rotate(-90deg)");
+          }
+          $("#humidity").text(data.humidity);
+          if (data.humidity != "--") {
+            $("#humidityStack").css("height", data.humidity + "%");
+            $("#humidityGauge").css("transform", "rotate(" + (-90 + map(data.humidity, 0, 100, 0, 180)) + "deg)");
+          }
+          else {
+            $("#humidityStack").css("height", "0%");
+            $("#humidityGauge").css("transform", "rotate(-90deg)");
+          }
+          $("#moist").text(data.moist);
+          if (data.moist != "--") {
+            $("#moistStack").css("height", data.moist + "%");
+            $("#moistGauge").css("transform", "rotate(" + (-90 + map(data.moist, 0, 100, 0, 180)) + "deg)");
+          }
+          else {
+            $("#moistStack").css("height", "0%");
+            $("#moistGauge").css("transform", "rotate(-90deg)");
+          }
+          $("#inBright").text(data.inBright);
+          if (data.inBright != "--") {
+            $("#inBrightStack").css("height", data.inBright + "%");
+            $("#inBrightGauge").css("transform", "rotate(" + (-90 + map(data.inBright, 0, 100, 0, 180)) + "deg)");
+          }
+          else {
+            $("#inBrightStack").css("height", "0%");
+            $("#inBrightGauge").css("transform", "rotate(-90deg)");
+          }
+          $("#outBright").text(data.outBright);
+          if (data.outBright != "--") {
+            $("#outBrightStack").css("height", data.outBright + "%");
+            $("#outBrightGauge").css("transform", "rotate(" + (-90 + map(data.outBright, 0, 100, 0, 180)) + "deg)");
+          }
+          else {
+            $("#outBrightStack").css("height", "0%");
+            $("#outBrightGauge").css("transform", "rotate(-90deg)");
+          }
+          $("#co2").text(data.co2);
+          if (data.co2 != "--") {
+            $("#co2Stack").css("height", map(data.co2, 400, 2000, 0, 100) + "%");
+            $("#co2Gauge").css("transform", "rotate(" + (-90 + map(data.co2, 400, 2000, 0, 180)) + "deg)");
+          }
+          else {
+            $("#co2Stack").css("height", "0%");
+            $("#co2Gauge").css("transform", "rotate(-90deg)");
+          }
+          $("#tvoc").text(data.tvoc);
+          if (data.tvoc != "--") {
+            $("#tvocStack").css("height", map(data.tvoc, 0, 1000, 0, 100) + "%");
+            $("#tvocGauge").css("transform", "rotate(" + (-90 + map(data.tvoc, 0, 1000, 0, 180)) + "deg)");
+          }
+          else {
+            $("#tvocStack").css("height", "0%");
+            $("#tvocGauge").css("transform", "rotate(-90deg)");
+          }
+          $("#upDay").text(data.upTime.split(":")[0]);
+          $("#upHour").text(data.upTime.split(":")[1]);
+          $("#upMinute").text(data.upTime.split(":")[2]);
+          $("#upSecond").text(data.upTime.split(":")[3]);
+          const now = new Date();
+          let hours = (now.getHours() < 10) ? "0" + now.getHours() : now.getHours();
+          let minutes = (now.getMinutes() < 10) ? "0" + now.getMinutes() : now.getMinutes();
+          let seconds = (now.getSeconds() < 10) ? "0" + now.getSeconds() : now.getSeconds();
+          $("#lastUpdate").text("Last update: " + hours + ":" + minutes + ":" + seconds);
+          if (data.jalali)
+            $("#dateShow").attr("style", "direction: rtl;")
+          setTimeout(() => {
+            $(".blank").fadeOut(500);
+            $(".center").fadeOut(500);
+          }, 750);
+          setTimeout(() => {
+            if (data.errorTitle != "none" && data.errorText != "none" && data.errorText != errorShow) {
+              $("#modal_title").text(data.errorTitle);
+              $("#modal_text").text(data.errorText);
+              var myModalEl = document.getElementById('alertModal');
+              var myModal = new bootstrap.Modal(myModalEl);
+              myModal.show();
+              errorShow = data.errorText;
+            }
+          }, 1250)
+        }, error: function (xhr, status) {
+          ajaxInProgress = false;
+          if (xhr.status == 0) {
+            $("#alert").text("Connecting...")
+            $(".blank").fadeIn(500);
+            $(".center").fadeIn(500);
+          }
+        }
+      });
+    }, 1000);
+  </script>
+</body>
+
+</html>

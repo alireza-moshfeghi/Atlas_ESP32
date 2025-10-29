@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#818CF8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="assets/icon/flower.png">
+  <title>Atlas Panel</title>
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="pt-5">
+  <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-5 fw-semibold">Atlas Panel</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="status">Status</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="devices">Devices</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="reports">Reports</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="history">History</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="settings">Settings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="network">Network</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about">About</a>
+          </li>
+        </ul>
+        <div id="btnBox1" class="d-block d-md-none mb-1">
+        </div>
+      </div>
+      <div id="btnBox2" class="d-none d-md-block">
+      </div>
+    </div>
+  </nav>
+  <div class="d-flex justify-content-center flex-wrap gap-3 mt-4 mb-3 pb-3">
+    <div class="col-11 col-md-4 item rounded-4 pb-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Temperature info</span>
+        </div>
+      </div>
+      <div class="d-flex flex-column align-items-center mt-4">
+        <div class="progress mb-3 position-relative">
+          <div id="maxTempProg" class="progress-fill position-absolute" style="width: 0%;">
+          </div>
+        </div>
+        <div class="progress position-relative">
+          <div id="minTempProg" class="progress-fill position-absolute" style="width: 0%;">
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center w-100 mt-4 mb-2">
+        <div class="details rounded-3 p-2 mt-1 w-75">
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Maximum: </span>
+            <span id="maxTemp" class="fs-6"></span>
+          </div>
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Recorded at: </span>
+            <span id="maxTempTime" class="fs-6"></span>
+          </div>
+          <hr class="my-2">
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Minimum: </span>
+            <span id="minTemp" class="fs-6"></span>
+          </div>
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Recorded at: </span>
+            <span id="minTempTime" class="fs-6"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-11 col-md-4 item rounded-4 pb-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Humidity info</span>
+        </div>
+      </div>
+      <div class="d-flex flex-column align-items-center mt-4">
+        <div class="progress mb-3 position-relative">
+          <div id="maxRHProg" class="progress-fill position-absolute" style="width: 0%;">
+          </div>
+        </div>
+        <div class="progress position-relative">
+          <div id="minRHProg" class="progress-fill position-absolute" style="width: 0%;">
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center w-100 mt-4 mb-2">
+        <div class="details rounded-3 p-2 mt-1 w-75">
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Maximum: </span>
+            <span id="maxRH" class="fs-6"></span>
+          </div>
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Recorded at: </span>
+            <span id="maxRHTime" class="fs-6"></span>
+          </div>
+          <hr class="my-2">
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Minimum: </span>
+            <span id="minRH" class="fs-6"></span>
+          </div>
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Recorded at: </span>
+            <span id="minRHTime" class="fs-6"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-11 col-md-4 item rounded-4 pb-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">In-Bright info</span>
+        </div>
+      </div>
+      <div class="d-flex flex-column align-items-center mt-4">
+        <div class="progress mb-3 position-relative">
+          <div id="maxBrightProg" class="progress-fill position-absolute" style="width: 0%;">
+          </div>
+        </div>
+        <div class="progress position-relative">
+          <div id="minBrightProg" class="progress-fill position-absolute" style="width: 0%;">
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center w-100 mt-4 mb-2">
+        <div class="details rounded-3 p-2 mt-1 w-75">
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Maximum: </span>
+            <span id="maxBright" class="fs-6"></span>
+          </div>
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Recorded at: </span>
+            <span id="maxBrightTime" class="fs-6"></span>
+          </div>
+          <hr class="my-2">
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Minimum: </span>
+            <span id="minBright" class="fs-6"></span>
+          </div>
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Recorded at: </span>
+            <span id="minBrightTime" class="fs-6"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-11 col-md-4 item rounded-4 pb-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">CO₂ info</span>
+        </div>
+      </div>
+      <div class="d-flex flex-column align-items-center mt-4">
+        <div class="progress mb-3 position-relative">
+          <div id="maxCo2Prog" class="progress-fill position-absolute" style="width: 0%;">
+          </div>
+        </div>
+        <div class="progress position-relative">
+          <div id="minCo2Prog" class="progress-fill position-absolute" style="width: 0%;">
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center w-100 mt-4 mb-2">
+        <div class="details rounded-3 p-2 mt-1 w-75">
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Maximum: </span>
+            <span id="maxCo2" class="fs-6"></span>
+          </div>
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Recorded at: </span>
+            <span id="maxCo2Time" class="fs-6"></span>
+          </div>
+          <hr class="my-2">
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Minimum: </span>
+            <span id="minCo2" class="fs-6"></span>
+          </div>
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Recorded at: </span>
+            <span id="minCo2Time" class="fs-6"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-11 col-md-4 item rounded-4 pb-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Soil Moisture info</span>
+        </div>
+      </div>
+      <div class="d-flex flex-column align-items-center mt-4">
+        <div class="progress mb-3 position-relative">
+          <div id="maxMoistProg" class="progress-fill position-absolute" style="width: 0%;">
+          </div>
+        </div>
+        <div class="progress position-relative">
+          <div id="minMoistProg" class="progress-fill position-absolute" style="width: 0%;">
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center w-100 mt-4 mb-2">
+        <div class="details rounded-3 p-2 mt-1 w-75">
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Maximum: </span>
+            <span id="maxMoist" class="fs-6"></span>
+          </div>
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Recorded at: </span>
+            <span id="maxMoistTime" class="fs-6"></span>
+          </div>
+          <hr class="my-2">
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Minimum: </span>
+            <span id="minMoist" class="fs-6"></span>
+          </div>
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Recorded at: </span>
+            <span id="minMoistTime" class="fs-6"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-11 col-md-4 item rounded-4 pb-4">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">TVOC info</span>
+        </div>
+      </div>
+      <div class="d-flex flex-column align-items-center mt-4">
+        <div class="progress mb-3 position-relative">
+          <div id="maxTvocProg" class="progress-fill position-absolute" style="width: 0%;">
+          </div>
+        </div>
+        <div class="progress position-relative">
+          <div id="minTvocProg" class="progress-fill position-absolute" style="width: 0%;">
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center w-100 mt-4 mb-2">
+        <div class="details rounded-3 p-2 mt-1 w-75">
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Maximum: </span>
+            <span id="maxTvoc" class="fs-6"></span>
+          </div>
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Recorded at: </span>
+            <span id="maxTvocTime" class="fs-6"></span>
+          </div>
+          <hr class="my-2">
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Minimum: </span>
+            <span id="minTvoc" class="fs-6"></span>
+          </div>
+          <div class="ps-1">
+            <span class="fs-6 fw-semibold item-subtitle">Recorded at: </span>
+            <span id="minTvocTime" class="fs-6"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-11 col-md-4 item rounded-4 pb-3">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Temperature analysis</span>
+        </div>
+      </div>
+      <div class="mt-2 px-4">
+        <canvas id="chartTemp" class="my-3 my-md-0"></canvas>
+      </div>
+    </div>
+    <div class="col-11 col-md-4 item rounded-4 pb-3">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Humidity analysis</span>
+        </div>
+      </div>
+      <div class="mt-2 px-4">
+        <canvas id="chartRH" class="my-3 my-md-0"></canvas>
+      </div>
+    </div>
+    <div class="col-11 col-md-4 item rounded-4 pb-3">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">In-Bright analysis</span>
+        </div>
+      </div>
+      <div class="mt-2 px-4">
+        <canvas id="chartBright" class="my-3 my-md-0"></canvas>
+      </div>
+    </div>
+    <div class="col-11 col-md-4 item rounded-4 pb-3">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">CO₂ analysis</span>
+        </div>
+      </div>
+      <div class="mt-2 px-4">
+        <canvas id="chartCo2" class="my-3 my-md-0"></canvas>
+      </div>
+    </div>
+    <div class="col-11 col-md-4 item rounded-4 pb-3">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">Soil Moisture analysis</span>
+        </div>
+      </div>
+      <div class="mt-2 px-4">
+        <canvas id="chartMoist" class="my-3 my-md-0"></canvas>
+      </div>
+    </div>
+    <div class="col-11 col-md-4 item rounded-4 pb-3">
+      <div class="d-flex align-items-center mt-2 mt-md-3">
+        <div class="w-50">
+          <span class="fs-5 item-subtitle ps-3 ps-md-4 fw-semibold">TVOC analysis</span>
+        </div>
+      </div>
+      <div class="mt-2 px-4">
+        <canvas id="chartTvoc" class="my-3 my-md-0"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="blank position-fixed">
+  </div>
+  <div class="center position-fixed py-2 px-3 rounded-4 bg-light shadow">
+    <div class="d-flex align-items-center gap-2">
+      <div class="spinner-border text-purple me-1" role="status" aria-hidden="true"></div>
+      <span id="alert" class="fs-5 fw-semibold">Loading...</span>
+    </div>
+  </div>
+  <div class="modal fade" id="alertModal" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style='background-color: var(--bd-color-light);'>
+          <h4 id="modal_title" class="modal-title">Modal Heading</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div id="modal_text" class="modal-body mb-3"></div>
+        <div class="modal-footer" style='background-color: var(--bd-color-light);'>
+          <button type="button" class="btn btn-purple" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="loginModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style='background-color: var(--bd-color-light);'>
+          <h4 class="modal-title">Sign in</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class='d-flex flex-column align-items-center py-4'>
+            <div class="col-10 col-md-9">
+                <div class="alert alert-purple mb-3 mt-0 w-100" role="alert" style="line-height: 0.5; display: none;" id="alert_text"></div>
+                <input type='text' class='form-control fs-6 w-100 mb-1' id='username' name='username' style='border-color: var(--up-color-light);' placeholder='Username'/>
+                <input type='password' class='form-control fs-6 w-100 mt-2' id='password' name='password' style='border-color: var(--up-color-light);' placeholder='Password'/>
+                <div class='form-check mt-2 w-100'>
+                    <input type='checkbox' class='form-check-input' id='showPass' onclick='showPassword(this)' style='border-color: var(--up-color-light);'>
+                    <label for='showPass' class='form-check-label fs-6' style='color: var(--bs-secondary-color);'>Show Password</label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style='background-color: var(--bd-color-light);'>
+          <button id="logBtn" type="button" class="btn btn-purple" onclick='loginBtn(this);'>Login</button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="logoutModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style='background-color: var(--bd-color-light);'>
+          <h4 class="modal-title">Logout Confirmation</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body mb-3">Are you sure you want to log out? Any unsaved changes may be lost.</div>
+        <div class="modal-footer" style='background-color: var(--bd-color-light);'>
+          <button type="button" class="btn btn-purple" onclick='logoutBtn(this);'>Yes</button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/jquery-3.7.1.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/chart.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#loginModal input').keypress(function(e) {
+          if (e.which === 13) {
+              e.preventDefault();
+              loginBtn($("#logBtn"));
+          }
+      });
+    });
+    let errorShow = "";
+    let chartTemp_old = "";
+    let chartRH_old = "";
+    let chartBright_old = "";
+    let chartCo2_old = "";
+    let chartMoist_old = "";
+    let chartTvoc_old = "";
+    let ajaxInProgress = false;
+    function map(value, in_min, in_max, out_min, out_max) {
+      return (value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+    setInterval(() => {
+      if (ajaxInProgress) return;
+      ajaxInProgress = true;
+      $.ajax({
+        url: "/getReports", 
+        type: 'POST', 
+        dataType: 'json', 
+        data: {
+            'sessionID': localStorage.getItem("sessionID")
+        },
+        success: function (data) {
+          ajaxInProgress = false;
+          if (data.login) {
+            $("#btnBox1").html("<button class='btn btn-purple' data-bs-toggle='modal' data-bs-target='#logoutModal'>Log out</button>");
+            $("#btnBox2").html("<button class='btn btn-purple' data-bs-toggle='modal' data-bs-target='#logoutModal'>Log out</button>");
+          }
+          else {
+            $("#btnBox1").html("<button class='btn btn-purple' data-bs-toggle='modal' data-bs-target='#loginModal'>Sign in</button>");
+            $("#btnBox2").html("<button class='btn btn-purple' data-bs-toggle='modal' data-bs-target='#loginModal'>Sign in</button>");
+          }
+          if (!data.login && data.forceLogin) {
+            window.location.href = '/login';
+          }
+          if (data.minTemp == "--") {
+            if (data.unit == "centigrade")
+              $("#minTemp").text("-- °C");
+            else if (data.unit == "fahrenheit")
+              $("#minTemp").text("-- °F");
+          }
+          else {
+            if (data.unit == "centigrade")
+              $("#minTemp").text(data.minTemp + " °C");
+            else if (data.unit == "fahrenheit")
+              $("#minTemp").text(data.minTemp + " °F");
+          }
+          if (data.maxTemp == "--") {
+            if (data.unit == "centigrade")
+              $("#maxTemp").text("-- °C");
+            else if (data.unit == "fahrenheit")
+              $("#maxTemp").text("-- °F");
+          }
+          else {
+            if (data.unit == "centigrade")
+              $("#maxTemp").text(data.maxTemp + " °C");
+            else if (data.unit == "fahrenheit")
+              $("#maxTemp").text(data.maxTemp + " °F");
+          }
+          $("#minTempTime").text(data.minTempTime);
+          $("#maxTempTime").text(data.maxTempTime);
+          if (data.maxRH == "--")
+            $("#maxRH").text("-- %");
+          else
+            $("#maxRH").text(data.maxRH + " %");
+          if (data.minRH == "--")
+            $("#minRH").text("-- %");
+          else
+            $("#minRH").text(data.minRH + " %");
+          $("#minRHTime").text(data.minRHTime);
+          $("#maxRHTime").text(data.maxRHTime);
+          $("#maxBright").text(data.maxBright + " %");
+          $("#minBright").text(data.minBright + " %");
+          $("#minBrightTime").text(data.minBrightTime);
+          $("#maxBrightTime").text(data.maxBrightTime);
+          if (data.unit == "centigrade") {
+            $("#maxTempProg").css("width", map(data.maxTemp, 0, 50, 0, 100) + "%");
+            $("#minTempProg").css("width", map(data.minTemp, 0, 50, 0, 100) + "%");
+          }
+          else if (data.unit == "fahrenheit") {
+            $("#maxTempProg").css("width", map(data.maxTemp, 32, 122, 0, 100) + "%");
+            $("#minTempProg").css("width", map(data.minTemp, 32, 122, 0, 100) + "%");
+          }
+          $("#maxRHProg").css("width", data.maxRH + "%");
+          $("#minRHProg").css("width", data.minRH + "%");
+          $("#maxBrightProg").css("width", data.maxBright + "%");
+          $("#minBrightProg").css("width", data.minBright + "%");
+          $("#maxCo2").text(data.maxCo2 + " ppm");
+          $("#minCo2").text(data.minCo2 + " ppm");
+          $("#minCo2Time").text(data.minCo2Time);
+          $("#maxCo2Time").text(data.maxCo2Time);
+          $("#maxCo2Prog").css("width", map(data.maxCo2, 400, 2000, 0, 100) + "%");
+          $("#minCo2Prog").css("width", map(data.minCo2, 400, 2000, 0, 100) + "%");
+          $("#maxMoist").text(data.maxMoist + " %");
+          $("#minMoist").text(data.minMoist + " %");
+          $("#minMoistTime").text(data.minMoistTime);
+          $("#maxMoistTime").text(data.maxMoistTime);
+          $("#maxMoistProg").css("width", data.maxMoist + "%");
+          $("#minMoistProg").css("width", data.minMoist + "%");
+          $("#maxTvoc").text(data.maxTvoc + " ppb");
+          $("#minTvoc").text(data.minTvoc + " ppb");
+          $("#minTvocTime").text(data.minTvocTime);
+          $("#maxTvocTime").text(data.maxTvocTime);
+          $("#maxTvocProg").css("width", map(data.maxTvoc, 0, 1000, 0, 100) + "%");
+          $("#minTvocProg").css("width", map(data.minTvoc, 0, 1000, 0, 100) + "%");
+          if (chartTemp != chartTemp_old) {
+            if (window.myChart1 instanceof Chart) {
+              window.myChart1.destroy();
+            }
+            const ctx = document.getElementById('chartTemp');
+            window.myChart1 = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: JSON.parse(data.labels),
+                datasets: [{
+                  label: 'Maximum',
+                  data: JSON.parse(data.maxTempChart),
+                  backgroundColor: "#6e7bf7",
+                  borderColor: '#6e7bf7',
+                  borderWidth: 2
+                }, {
+                  label: 'Minimum',
+                  data: JSON.parse(data.minTempChart),
+                  backgroundColor: "#c4b5fd",
+                  borderColor: '#c4b5fd',
+                  borderWidth: 2
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+            chartTemp_old = chartTemp;
+          }
+          if (chartRH != chartRH_old) {
+            if (window.myChart2 instanceof Chart) {
+              window.myChart2.destroy();
+            }
+            const ctx = document.getElementById('chartRH');
+            window.myChart2 = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: JSON.parse(data.labels),
+                datasets: [{
+                  label: 'Maximum',
+                  data: JSON.parse(data.maxRHChart),
+                  backgroundColor: "#6e7bf7",
+                  borderColor: '#6e7bf7',
+                  borderWidth: 2
+                }, {
+                  label: 'Minimum',
+                  data: JSON.parse(data.minRHChart),
+                  backgroundColor: "#c4b5fd",
+                  borderColor: '#c4b5fd',
+                  borderWidth: 2
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+            chartRH_old = chartRH;
+          }
+          if (chartBright != chartBright_old) {
+            if (window.myChart3 instanceof Chart) {
+              window.myChart3.destroy();
+            }
+            const ctx = document.getElementById('chartBright');
+            window.myChart3 = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: JSON.parse(data.labels),
+                datasets: [{
+                  label: 'Maximum',
+                  data: JSON.parse(data.maxBrightChart),
+                  backgroundColor: "#6e7bf7",
+                  borderColor: '#6e7bf7',
+                  borderWidth: 2
+                }, {
+                  label: 'Minimum',
+                  data: JSON.parse(data.minBrightChart),
+                  backgroundColor: "#c4b5fd",
+                  borderColor: '#c4b5fd',
+                  borderWidth: 2
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+            chartBright_old = chartBright;
+          }
+          if (chartCo2 != chartCo2_old) {
+            if (window.myChart4 instanceof Chart) {
+              window.myChart4.destroy();
+            }
+            const ctx = document.getElementById('chartCo2');
+            window.myChart4 = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: JSON.parse(data.labels),
+                datasets: [{
+                  label: 'Maximum',
+                  data: JSON.parse(data.maxCo2Chart),
+                  backgroundColor: "#6e7bf7",
+                  borderColor: '#6e7bf7',
+                  borderWidth: 2
+                }, {
+                  label: 'Minimum',
+                  data: JSON.parse(data.minCo2Chart),
+                  backgroundColor: "#c4b5fd",
+                  borderColor: '#c4b5fd',
+                  borderWidth: 2
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+            chartCo2_old = chartCo2;
+          }
+          if (chartMoist != chartMoist_old) {
+            if (window.myChart5 instanceof Chart) {
+              window.myChart5.destroy();
+            }
+            const ctx = document.getElementById('chartMoist');
+            window.myChart5 = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: JSON.parse(data.labels),
+                datasets: [{
+                  label: 'Maximum',
+                  data: JSON.parse(data.maxMoistChart),
+                  backgroundColor: "#6e7bf7",
+                  borderColor: '#6e7bf7',
+                  borderWidth: 2
+                }, {
+                  label: 'Minimum',
+                  data: JSON.parse(data.minMoistChart),
+                  backgroundColor: "#c4b5fd",
+                  borderColor: '#c4b5fd',
+                  borderWidth: 2
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+            chartMoist_old = chartMoist;
+          }
+          if (chartTvoc != chartTvoc_old) {
+            if (window.myChart6 instanceof Chart) {
+              window.myChart6.destroy();
+            }
+            const ctx = document.getElementById('chartTvoc');
+            window.myChart6 = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: JSON.parse(data.labels),
+                datasets: [{
+                  label: 'Maximum',
+                  data: JSON.parse(data.maxTvocChart),
+                  backgroundColor: "#6e7bf7",
+                  borderColor: '#6e7bf7',
+                  borderWidth: 2
+                }, {
+                  label: 'Minimum',
+                  data: JSON.parse(data.minTvocChart),
+                  backgroundColor: "#c4b5fd",
+                  borderColor: '#c4b5fd',
+                  borderWidth: 2
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+            chartTvoc_old = chartTvoc;
+          }
+          setTimeout(() => {
+            $(".blank").fadeOut(500);
+            $(".center").fadeOut(500);
+          }, 750);
+          setTimeout(() => {
+            if (data.errorTitle != "none" && data.errorText != "none" && data.errorText != errorShow) {
+              $("#modal_title").text(data.errorTitle);
+              $("#modal_text").text(data.errorText);
+              var myModalEl = document.getElementById('alertModal');
+              var myModal = new bootstrap.Modal(myModalEl);
+              myModal.show();
+              errorShow = data.errorText;
+            }
+          }, 1250)
+        }, error: function (xhr, status) {
+          ajaxInProgress = false;
+          if (xhr.status == 0) {
+            $("#alert").text("Connecting...")
+            $(".blank").fadeIn(500);
+            $(".center").fadeIn(500);
+          }
+        }
+      });
+    }, 1000);
+  </script>
+</body>
+
+</html>

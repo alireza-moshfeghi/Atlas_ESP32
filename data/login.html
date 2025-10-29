@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#818CF8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="assets/icon/flower.png">
+  <title>Atlas Panel</title>
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="login-page">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-11 col-sm-8 col-md-6 col-lg-4">
+        <div class="card shadow-lg border-0 rounded-4">
+          <div class="card-body p-4">
+            <h4 class="text-center mb-4 fw-bold">Atlas Login</h4>
+            <div id="loginModal">
+              <div class="mb-3">
+                <label for="username" class="form-label mb-1">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter username" required>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label mb-1">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+              </div>
+              <button id="logBtn" class="btn btn-purple w-100" onclick="loginBtn(this, true);">Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="alertModal" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style='background-color: var(--bd-color-light);'>
+          <h4 id="modal_title" class="modal-title">Modal Heading</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div id="modal_text" class="modal-body mb-3"></div>
+        <div class="modal-footer" style='background-color: var(--bd-color-light);'>
+          <button type="button" class="btn btn-purple" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/jquery-3.7.1.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+    $(document).ready(function() {
+        $("#username").focus();
+        $('#loginModal input').keypress(function(e) {
+            if (e.which === 13) {
+              e.preventDefault();
+              loginBtn($("#logBtn"), true);
+            }
+        });
+    });
+    let ajaxInProgress = false;
+    setTimeout(() => {
+      $.ajax({
+        url: "/getStatus",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          'sessionID': localStorage.getItem("sessionID")
+        },
+        success: function (data) {
+          ajaxInProgress = false;
+          if (data.login) {
+            window.location.href = '/status';
+          }
+        }
+      });
+    }, 0);
+    function map(value, in_min, in_max, out_min, out_max) {
+      return (value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+    setInterval(() => {
+      if (ajaxInProgress) return;
+      ajaxInProgress = true;
+      $.ajax({
+        url: "/getStatus",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          'sessionID': localStorage.getItem("sessionID")
+        },
+        success: function (data) {
+          ajaxInProgress = false;
+          if (data.login) {
+            window.location.href = '/status';
+          }
+        }
+      });
+    }, 1000);
+  </script>
+</body>
