@@ -1,5 +1,4 @@
 <div align="center">
-
   # 🌿 Atlas – Smart Greenhouse Control & Management System
 
   **An intelligent IoT middleware for remote monitoring, automation, and data logging of greenhouse environments using ESP32**
@@ -134,6 +133,13 @@ You can review logs directly from the web dashboard to:
 - Always **change them immediately** after installation.  
 - Keep your firmware **up-to-date** to receive new features and security patches.  
 - If connected to the Internet, ensure your Wi-Fi network uses **WPA2** or higher encryption.
+
+---
+
+## ⚠️ Disclaimer
+
+This version of Atlas is intended **for testing, research, and educational purposes only**.  
+It is **not licensed or optimized for commercial use**, and performance or reliability in production environments is **not guaranteed**.
 
 ---
 
