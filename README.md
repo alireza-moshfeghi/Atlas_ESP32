@@ -51,6 +51,7 @@ The system acts as the central control unit, integrating sensors and relays to m
 | **Soil Moisture Sensor** | Monitors soil water content |
 | **LDR / Photocell** | Measures light intensity |
 | **CO₂ & TVOC Sensor** | Monitors air quality |
+| **DS3231 RTC Module** | Provides accurate real-time clock for scheduling and logging |
 | **Relay Module(s)** | Controls electrical devices |
 | **Power Supply** | Provides stable voltage for ESP32 and peripherals |
 
