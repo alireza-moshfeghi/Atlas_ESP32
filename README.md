@@ -1,4 +1,5 @@
 <div align="center">
+
   # 🌿 Atlas – Smart Greenhouse Control & Management System
 
   **An intelligent IoT middleware for remote monitoring, automation, and data logging of greenhouse environments using ESP32**
@@ -7,6 +8,7 @@
   ![License](https://img.shields.io/badge/License-MIT-green)
   ![IoT](https://img.shields.io/badge/Category-IoT%20Project-lightgrey)
 </div>
+
 
 ---
 
