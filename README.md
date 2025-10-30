@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="logo.png" alt="Atlas Logo" width="200"/>
 
   # 🌿 Atlas – Smart Greenhouse Control & Management System
 
