@@ -59,7 +59,4 @@ void webSetup() {
     addFileRoute("/assets/js/script.js", "/assets/js/script.js", "application/javascript");
     addFileRoute("/assets/js/chart.js", "/assets/js/chart.js", "application/javascript");
     
-    // ICON
-    addFileRoute("/assets/icon/flower.png", "/assets/icon/flower.png", "image/png");
-
 }
