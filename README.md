@@ -10,7 +10,17 @@
 </div>
 
 
----
+## 📸 System Preview
+
+<div align="center">
+  
+  | Main Dashboard | Configuration Panel |
+  |:-------------:|:-------------------:|
+  | ![Dashboard](images/image1.jpg) | ![Settings](images/image2.jpg) |
+  
+  *Atlas middleware interface preview*
+  
+</div>
 
 ## 🧠 Overview
 
