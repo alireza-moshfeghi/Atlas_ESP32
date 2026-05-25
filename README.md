@@ -14,6 +14,7 @@
 
 <div align="center">
   
+  | Preview | Preview |
   |:-------------:|:-------------------:|
   | ![Dashboard](image1.jpg) | ![Settings](image2.jpg) |
   
