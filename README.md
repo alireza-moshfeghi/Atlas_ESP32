@@ -70,7 +70,7 @@ The system acts as the central control unit, integrating sensors and relays to m
 
 1. **Clone or download** this repository:
    ```bash
-   git clone https://github.com/your-username/Atlas.git
+   git clone https://github.com/alireza-moshfeghi/Atlas_ESP32.git
    ```
 2. **Open the project** in **Arduino IDE** or **PlatformIO**.  
 3. **Configure the following parameters** in the source code:
