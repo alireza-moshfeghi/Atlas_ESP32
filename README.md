@@ -13,11 +13,12 @@
 ## 📸 System Preview
 
 <div align="center">
-  
-  | Preview | Preview |
-  |:-------------:|:-------------------:|
-  | ![Dashboard](image1.jpg) | ![Settings](image2.jpg) |
-  
+  <table>
+    <tr>
+      <td align="center"><img src="image1.jpg" alt="Dashboard"></td>
+      <td align="center"><img src="image2.jpg" alt="Settings"></td>
+    </tr>
+  </table>
 </div>
 
 ## 🧠 Overview
