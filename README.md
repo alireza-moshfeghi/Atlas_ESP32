@@ -14,8 +14,6 @@
 
 <div align="center">
   
-  | Main Dashboard | Configuration Panel |
-  |:-------------:|:-------------------:|
   | ![Dashboard](image1.jpg) | ![Settings](image2.jpg) |
   
   *Atlas middleware interface preview*
